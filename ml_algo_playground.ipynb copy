@@ -1,0 +1,148 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "What files do I need?\n",
+    "\n",
+    "You'll need train.csv, test.csv and sample_submission.csv.\n",
+    "What should I expect the data format to be?\n",
+    "\n",
+    "Each sample in the train and test set has the following information:\n",
+    "\n",
+    "    The text of a tweet\n",
+    "    A keyword from that tweet (although this may be blank!)\n",
+    "    The location the tweet was sent from (may also be blank)\n",
+    "\n",
+    "What am I predicting?\n",
+    "\n",
+    "You are predicting whether a given tweet is about a real disaster or not. If so, predict a 1. If not, predict a 0.\n",
+    "Files\n",
+    "\n",
+    "    train.csv - the training set\n",
+    "    test.csv - the test set\n",
+    "    sample_submission.csv - a sample submission file in the correct format\n",
+    "\n",
+    "Columns\n",
+    "\n",
+    "    id - a unique identifier for each tweet\n",
+    "    text - the text of the tweet\n",
+    "    location - the location the tweet was sent from (may be blank)\n",
+    "    keyword - a particular keyword from the tweet (may be blank)\n",
+    "    target - in train.csv only, this denotes whether a tweet is about a real disaster (1) or not (0)\n"
+   ],
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "source": [
+    "IS_CREDIBLE_DISASTER = 0 # init\n",
+    "\n",
+    "# a generator creates fake data \n",
+    "\n",
+    "# a discriminator compares that to real data \n",
+    "\n",
+    "# each is scored and improved until generator data is above acceptable threshhold \n",
+    "import tqdm \n",
+    "from tqdm import tqdm\n",
+    "\n",
+    "from keras.preprocessing.text import text_to_word_sequence\n",
+    "# define the text \n",
+    "text = train_data\n",
+    "# tokenizing the text \n",
+    "tokens = text_to_word_sequence(text)\n",
+    "print(tokens[0])\n"
+   ],
+   "outputs": [],
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "source": [
+    "def tokensforyou(tokenizer,train_data):\n",
+    "    for item in train_data:\n",
+    "\n",
+    "        string_option = str(item)\n",
+    "        # fit the tokenizer on the document\n",
+    "        tokenizer.fit_on_texts(text)\n",
+    "        # print the attributes for the text and encode the doucment\n",
+    "        print(tokenizer.word_counts)\n",
+    "        print(tokenizer.word_docs)\n",
+    "        print(tokenizer.word_index)\n",
+    "        print(tokenizer.document_count)\n",
+    "        encoded_text = tokenizer.texts_to_matrix(text)\n",
+    "        print(encoded_text)\n",
+    "    return tokenizer"
+   ],
+   "outputs": [],
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "source": [
+    "# Load CSV (using python)\n",
+    "import csv\n",
+    "import numpy\n",
+    "import pandas as pd\n",
+    "from keras.preprocessing.text import text_to_word_sequence\n",
+    "filename = '/Users/grahamwaters/Documents/GitHub Main Repository/KAGGLE_COMPETITIONS/DISASTERS/test.csv'\n",
+    "#reader = csv.reader(raw_data, delimiter=',', quoting=csv.QUOTE_NONE)\n",
+    "df_test = pd.read_csv(filename)\n",
+    "df_test\n",
+    "filename = '/Users/grahamwaters/Documents/GitHub Main Repository/KAGGLE_COMPETITIONS/DISASTERS/train.csv'\n",
+    "#reader = csv.reader(raw_data, delimiter=',', quoting=csv.QUOTE_NONE)\n",
+    "df_train = pd.read_csv(filename)\n",
+    "df_train\n",
+    "train_data = pd.array(df_train['text'])\n",
+    "test_data = pd.array(df_test['text'])\n",
+    "#print(train_data)\n",
+    "from keras.preprocessing.text import Tokenizer\n",
+    "# creating tokenizer\n",
+    "tokenizer = Tokenizer()\n",
+    "tokenizer = tokensforyou(tokenizer,train_data)"
+   ],
+   "outputs": [],
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "source": [
+    "\n",
+    "# define the text \n",
+    "text = train_data\n",
+    "# tokenizing the text \n",
+    "tokens = text_to_word_sequence(text)\n"
+   ],
+   "outputs": [],
+   "metadata": {}
+  }
+ ],
+ "metadata": {
+  "orig_nbformat": 4,
+  "language_info": {
+   "name": "python",
+   "version": "3.9.6",
+   "mimetype": "text/x-python",
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "pygments_lexer": "ipython3",
+   "nbconvert_exporter": "python",
+   "file_extension": ".py"
+  },
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3.9.6 64-bit"
+  },
+  "interpreter": {
+   "hash": "aee8b7b246df8f9039afb4144a1f6fd8d2ca17a180786b69acc140d282b71a49"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
